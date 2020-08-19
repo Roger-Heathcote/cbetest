@@ -1,0 +1,61 @@
+{
+	"name": "flashcard-api",
+	"version": "1.0.0",
+	"engines": {
+		"node": "13.12.x"
+	},
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"dev": "LOGGING=ON nodemon server.js",
+		"debug": "LOGGING=VERBOSE nodemon server.js",
+		"test": "TESTING=TRUE jest tests/*.test.js",
+		"testdb": "TESTING=TRUE jest -i testsdb/*.test.js",
+		"travistestdb": "TESTING=TRUE TESTDATABASE=travis_ci_test SECRET=testsecret jest --coverage=true",
+		"initdb": "node db/build.js",
+		"initdemodb": "node db/examples/addExamples.js",
+		"lint": "eslint .",
+		"prettify": "pretty-quick --staged"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.js": [
+			"eslint",
+			"pretty-quick --staged"
+		]
+	},
+	"jest": {
+		"testEnvironment": "node",
+		"coveragePathIgnorePatterns": [
+			"/node_modules/"
+		]
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"eslint": "^6.8.0",
+		"eslint-config-airbnb-base": "^14.1.0",
+		"eslint-config-prettier": "^6.11.0",
+		"eslint-plugin-import": "^2.20.2",
+		"husky": "^4.2.5",
+		"jest": "^26.0.1",
+		"lint-staged": "^10.2.2",
+		"nodemon": "^2.0.4",
+		"prettier": "^2.0.5",
+		"pretty-quick": "^2.0.1"
+	},
+	"dependencies": {
+		"supertest": "^4.0.2",
+		"bcryptjs": "^2.4.3",
+		"cors": "^2.8.5",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"pg": "^8.2.1"
+	}
+}

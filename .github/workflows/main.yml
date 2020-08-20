@@ -36,7 +36,7 @@ jobs:
           CI: true
 
       - name: Run database tests
-        run: npm testdb
+        run: npm run testdb
         env:
           POSTGRES_HOST: postgres
           POSTGRES_PORT: 5432

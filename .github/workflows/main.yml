@@ -1,24 +1,36 @@
-name: Node.js CI
+name: Default CI
 
 on: [push]
 
 jobs:
-  build:
+  container-job:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
+    container: node:10.18-jessie
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run build --if-present
-    - run: npm test
-      env:
-        CI: true
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Install and build
+        run: npm install
+        run: npm run build --if-present
+
+      - name: Run tests
+        run: npm test
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
+          CI: true

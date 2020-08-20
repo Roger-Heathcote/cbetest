@@ -33,7 +33,8 @@ function errorHandler(err) {
 		console.log(err);
 	} else {
 		console.log('Database error in build.js:\n', err);
-		throw err;
+		// throw err;
+		console.log(1 / 0);
 	}
 }
 

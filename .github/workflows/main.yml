@@ -3,52 +3,51 @@ name: Default CI
 on: [push]
 
 jobs:
-  container-job:
+    container-job:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        container: node:10.18-jessie
 
-    container: node:10.18-jessie
+        services:
+            postgres:
+                image: postgres
+                env:
+                    PGUSER: postgres
+                    PGPASSWORD: postgres
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
 
-    services:
-      postgres:
-        image: postgres
-        env:
-          PGUSER: postgres
-          PGPASSWORD: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        steps:
+            - name: Check out repository code
+              uses: actions/checkout@v2
 
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
+            - name: Install dependencies
+              run: npm install
 
-      - name: Install dependencies
-        run: npm install
+            - name: Build project
+              run: npm run build --if-present
 
-      - name: Build project
-        run: npm run build --if-present
+            - name: Run non-database tests
+              run: npm test
+              env:
+                  CI: true
 
-      - name: Run non-database tests
-        run: npm test
-        env:
-          CI: true
-
-      - name: Run database tests
-        # run: npm run initdb && npm run testdb
-        run: npm run initdb
-        env:
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
-          PGDATABASE: postgres
-          PGUSER: postgres
-          POSTGRES_USER: postgres
-          PGPASSWORD: postgres
-          POSTGRES_PASSWORD: postgres
-          TESTDATABASE: testdb
-          SECRET: ASECRETCODE
-          CI: true
+            - name: Run database tests
+              # run: npm run initdb && npm run testdb
+              run: npm run initdb
+              env:
+                  POSTGRES_HOST: postgres
+                  POSTGRES_PORT: 5432
+                  PGDATABASE: postgres
+                  PGUSER: postgres
+                  POSTGRES_USER: postgres
+                  PGPASSWORD: postgres
+                  POSTGRES_PASSWORD: postgres
+                  TESTDATABASE: postgres
+                  SECRET: ASECRETCODE
+                  CI: true

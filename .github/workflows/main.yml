@@ -44,19 +44,8 @@ jobs:
                   POSTGRES_PORT: 5432
 
             - name: Run database tests
-              # run: npm run initdb && npm run testdb
-              run: npm run initdb
+              run: npm run initdb && npm run testdb
               env:
                 DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
                 POSTGRES_HOST: postgres
                 POSTGRES_PORT: 5432
-            #       PORT: 5432
-            #       PGPORT: 5432
-            #       PGDATABASE: postgres
-            #       PGUSER: postgres
-            #       POSTGRES_USER: postgres
-            #       PGPASSWORD: postgres
-            #       POSTGRES_PASSWORD: postgres
-            #       TESTDATABASE: postgres
-            #       SECRET: ASECRETCODE
-            #       CI: true

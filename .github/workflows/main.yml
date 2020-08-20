@@ -12,7 +12,10 @@ jobs:
     services:
       postgres:
         image: postgres
-        env:
+		env:
+		  PGUSER: postgres
+          PGPASSWORD: postgres
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
@@ -40,9 +43,12 @@ jobs:
         run: npm run initdb
         env:
           POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
+		  POSTGRES_PORT: 5432
+		  PGDATABASE: proddatabase
           PGUSER: postgres
+          POSTGRES_USER: postgres
           PGPASSWORD: postgres
+          POSTGRES_PASSWORD: postgres
           TESTDATABASE: testdb
           SECRET: ASECRETCODE
           CI: true

@@ -36,9 +36,9 @@ jobs:
           CI: true
 
       - name: Run database tests
-        run: npm run testdb
+        run: npm run initdb && npm run testdb
         env:
-          POSTGRES_HOST: postgres
+          POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
           PGUSER: postgres
           PGPASSWORD: postgres

@@ -13,7 +13,7 @@ jobs:
       postgres:
         image: postgres
         env:
-        PGUSER: postgres
+          PGUSER: postgres
           PGPASSWORD: postgres
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres

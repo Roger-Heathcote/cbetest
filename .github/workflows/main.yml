@@ -47,7 +47,7 @@ jobs:
               # run: npm run initdb && npm run testdb
               run: npm run initdb
               env:
-                DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+                DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
                 POSTGRES_HOST: postgres
                 POSTGRES_PORT: 5432
             #       PORT: 5432

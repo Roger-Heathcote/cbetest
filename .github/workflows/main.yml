@@ -34,17 +34,9 @@ jobs:
               env:
                   CI: true
 
-            - name: PGCI test script
-              run: node pgcitest.js
-              env:
-                  POSTGRES_HOST: postgres
-                  POSTGRES_PORT: 5432
-
             - name: Run database tests
               run: npm run initdb && npm run testdb
               env:
                 DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
-                POSTGRES_HOST: postgres
-                POSTGRES_PORT: 5432
                 SECRET: ASECRETCODE
                 CI: true

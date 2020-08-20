@@ -39,9 +39,9 @@ jobs:
         run: npm run testdb
         env:
           POSTGRES_HOST: postgres
-		  POSTGRES_PORT: 5432
-		  PGUSER: postgres
-		  PGPASSWORD: postgres
-		  TESTDATABASE: testdb
-		  SECRET: ASECRETCODE
+          POSTGRES_PORT: 5432
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          TESTDATABASE: testdb
+          SECRET: ASECRETCODE
           CI: true
